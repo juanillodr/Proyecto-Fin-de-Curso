@@ -14,4 +14,4 @@ Deberá contener un índice inicial, en el que aparezcan los subapartados fundam
 La Memoria Descriptiva habrá que presentarla en formato .pdf, subiéndola en el enlace correspondiente de la plataforma.
 
 ## NOTA: 
-*La memoria descriptiva debe desarrollarse usando un lenguaje claro y preciso, enriqueciéndola con todos los gráficos e imágenes que sean necesarios. De forma que sí una persona con conocimientos básicos en informática la coge, sea capaz de implementar lo descrito en ella.
+* La memoria descriptiva debe desarrollarse usando un lenguaje claro y preciso, enriqueciéndola con todos los gráficos e imágenes que sean necesarios. De forma que sí una persona con conocimientos básicos en informática la coge, sea capaz de implementar lo descrito en ella.
