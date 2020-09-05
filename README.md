@@ -2,8 +2,8 @@
 Simulacion de un entonrno informatico en un centro de conservacion de carreteras
 
 
-##GUÍA PARA ELABORAR LA MEMORIA DESCRIPTIVA
-La Memoria Descriptiva debe contar con los siguientes apartados:
+# GUÍA PARA ELABORAR LA MEMORIA DESCRIPTIVA
+## La Memoria Descriptiva debe contar con los siguientes apartados:
  Título del proyecto.
  Objetivo o finalidad del proyecto.
  Herramientas software/hardware y bibliografía utilizada en el proyecto.
