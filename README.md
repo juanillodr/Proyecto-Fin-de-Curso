@@ -1,5 +1,5 @@
-# Proyecto Fin de Curso
-Simulacion de un entonrno informatico en un centro de conservacion de carreteras
+# PROPUESTA DE PROYECTO INTEGRADO (PI)
+Simulación de un Rack con varios servicios en red para un centro de conservación de carreteras. 
 
 
 ## GUÍA PARA ELABORAR LA MEMORIA DESCRIPTIVA
