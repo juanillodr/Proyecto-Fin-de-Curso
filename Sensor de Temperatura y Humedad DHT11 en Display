@@ -1,0 +1,68 @@
+/*Juan Dominguez Rodriguez, Sensor de Temperatura y Humedad DHT11 en Display */
+
+
+//Incluimos las librerias necesarias para comunicarnos con la pantalla y sensor
+#include <Wire.h>                  
+#include <LiquidCrystal_I2C.h>  
+
+
+//Declaramos los pines de salida para la pantalla  
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);//Direccion de LCD
+
+//Incluirmos la libreria para leer valores del sensor de temp. y humedad.
+#include "DHT.h"
+#define DHTPIN 9  //Definimos el pin 9 como receptor de valores del sensor
+
+#define DHTTYPE DHT11 
+DHT dht(DHTPIN, DHTTYPE);
+
+
+//Iniciamos el bloque void setup()
+
+void setup() {
+lcd.begin(16,2);      // Indicamos medidas de LCD
+dht.begin();
+lcd.clear();          //Eliminamos todos los simbolos del LCD antes de imprimir en el
+lcd.setCursor(0,0);   //Posicionamos la primera letra en la linea 0             
+lcd.print("Iniciando "); //Imprimimos un primer mensaje
+lcd.setCursor(0,1);  //Posicionamos la primera letra den la linea 1  
+lcd.print("sensor de H y T"); //Imprimimos un segundo mensaje en la segunda linea.
+delay (5000);
+}
+
+//Comenzamos el bloque void loop() el cual ser repetira en el tiempo
+
+void loop() { 
+int h = dht.readHumidity();   // Declaramos la variable h y le asignamos el valor de la humedad
+int t= dht.readTemperature(); // Declaramos la variable t y le asignamos el valor de la temperatura.
+
+
+//Eliminamos todos los simbolos del lcd, y escrbimimos en el los valores de las variables.
+
+lcd.clear();//Elimina todos los simbolos del LCD
+//humedad 
+lcd.setCursor(0,0);//Posiciona la primera letra despues del segmento 0 en linea 1  
+lcd.print("  Humedad   "); 
+lcd.print(h );//Escribe la humedad
+lcd.print(" %"); 
+
+//temperatura
+lcd.setCursor(0,1);
+lcd.print("Temperatura "); 
+lcd.print(t);//Escribe la temperatura
+lcd.print(" C'"); 
+
+//mantenemos los valores impresos 10 segundos                  
+delay (10000);
+
+     
+//y luego limpiamos y escribimos el proyecto y nombre. 
+lcd.clear();
+lcd.setCursor(0,0);
+lcd.print("PROYECTO DE ASIR"); 
+lcd.setCursor(2,1);
+lcd.print("J.DOMINGUEZ.");
+
+  //volvemos a esperar 2 segundos y medio, y comienzamos desde el inicio del void loop().                  
+  delay (2500);
+}
