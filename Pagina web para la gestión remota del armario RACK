@@ -1,0 +1,331 @@
+/*Juan Dominguez Rodriguez, Pagina web para la gestión remota del armario RACK*/
+
+#include <SPI.h>
+#include <Ethernet.h>
+ 
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEC };
+IPAddress ip(192, 168, 10, 10);
+EthernetServer server(80);
+ 
+const int pinLed1 = 31;
+const int pinLed2 = 33;
+const int pinLed3 = 35;
+const int pinLed4 = 37;
+const int pinLed5 = 39;
+const int pinLed6 = 41;
+const int pinLed7 = 43;
+const int pinLed8 = 45;
+ 
+void setup()
+{
+  Serial.begin(9600);
+ 
+  Ethernet.begin(mac, ip);
+  server.begin();
+ 
+  Serial.print("server is at ");
+  Serial.println(Ethernet.localIP());
+ 
+  pinMode(pinLed1, OUTPUT);
+  pinMode(pinLed2, OUTPUT);
+  pinMode(pinLed3, OUTPUT);
+  pinMode(pinLed4, OUTPUT);
+  pinMode(pinLed5, OUTPUT);
+  pinMode(pinLed6, OUTPUT);
+  pinMode(pinLed7, OUTPUT);
+  pinMode(pinLed8, OUTPUT);
+  digitalWrite(pinLed1, HIGH);
+  digitalWrite(pinLed2, HIGH);
+  digitalWrite(pinLed3, HIGH);
+  digitalWrite(pinLed4, HIGH);
+  digitalWrite(pinLed5, HIGH);
+  digitalWrite(pinLed6, HIGH);
+  digitalWrite(pinLed7, HIGH);
+  digitalWrite(pinLed8, HIGH);
+  
+}
+ 
+void loop()
+{
+  EthernetClient client = server.available(); 
+  if (client)
+  {
+    Serial.println("new client");
+    bool currentLineIsBlank = true;
+    String cadena = "";
+    while (client.connected()) 
+    {
+      if (client.available()) 
+      {
+        char c = client.read();
+        Serial.write(c);
+ 
+        if (cadena.length()<100)
+        {
+          cadena.concat(c);
+ 
+           // Buscar campo data
+          int posicion = cadena.indexOf("data");
+          String command = cadena.substring(posicion);
+ 
+          if (command == "data1=0")
+          {
+            digitalWrite(pinLed1, LOW);
+          }
+          else if (command == "data1=1")
+          {
+            digitalWrite(pinLed1, HIGH);
+          }
+
+
+          
+          else if (command == "data2=0")
+          {
+            digitalWrite(pinLed2, LOW);
+          }
+          else if (command == "data2=1")
+          {
+            digitalWrite(pinLed2, HIGH);
+          }
+
+          
+                    
+          else if (command == "data3=0")
+          {
+            digitalWrite(pinLed3, LOW);
+          }
+          else if (command == "data3=1")
+          {
+            digitalWrite(pinLed3, HIGH);
+          }
+
+          
+
+          else if (command == "data4=0")
+          {
+            digitalWrite(pinLed4, LOW);
+          }
+          else if (command == "data4=1")
+          {
+            digitalWrite(pinLed4, HIGH);
+          }
+
+          
+
+           else if (command == "data5=0")
+          {
+            digitalWrite(pinLed5, LOW);
+          }
+          else if (command == "data5=1")
+          {
+            digitalWrite(pinLed5, HIGH);
+          }
+
+
+          
+
+          else if (command == "data6=0")
+          {
+            digitalWrite(pinLed6, LOW);
+          }
+          else if (command == "data6=1")
+          {
+            digitalWrite(pinLed6, HIGH);
+          }
+
+          
+          
+          else if (command == "data7=0")
+          {
+            digitalWrite(pinLed7, LOW);
+          }
+          else if (command == "data7=1")
+          {
+            digitalWrite(pinLed7, HIGH);
+          }
+
+          
+          
+          else if (command == "data8=0")
+          {
+            digitalWrite(pinLed8, LOW);
+          }
+          else if (command == "data8=1")
+          {
+            digitalWrite(pinLed8, HIGH);
+          }
+          
+        }
+ 
+        // Al recibir linea en blanco, servir página a cliente
+        if (c == '\n' && currentLineIsBlank)
+
+        {
+          
+          // Enviamos al cliente una respuesta HTTP
+          client.println(F("HTTP/1.1 200 OK\nContent-Type: text/html"));
+          client.println();
+ 
+          
+          
+          
+          
+          
+          //Página web en formato HTML
+          client.println(F("<html>\n<head>\n<title>Juan Dominguez Rodriguez</title>\n</head>\n<body>"));
+          client.println(F("<div style='text-align:center;'>"));
+          client.println("<h1 align='center'>SISTEMA DE GESTION WEB SOBRE EL ARMARIO DE SERVICIOS DEL CENTRO DE CONTROL DE TUNELES</h1>");
+       
+
+          
+          
+          
+          
+          //A continuación, Vamos a crear los botones cada uno de ellos dentro de un div flotante en la pagina. 
+          client.println(F("<div style='float: left; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("TENSION EN FUENTE DE ALIMENTACION PRINCIPAL"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data1=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data1=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed1) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          
+ 
+          client.println(F("<div style='float: right; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("DIRECCION IP DE AYUDA"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data2=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data2=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed2) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+ 
+
+          client.println(F("<div style='margin-top: 10px; float: left; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("VENTILADOR REFRIGERACION"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data3=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data3=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed3) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          
+ 
+
+          client.println(F("<div style='margin-top: 10px; float: right; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("WEB DE AYUDA"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data4=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data4=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed4) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+ 
+          client.println(F("<div style='margin-top: 10px; float: left; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("ILUMINACION INTERIOR DEL ARMARIO"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data5=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data5=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed5) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+
+
+          client.println(F("<div style='margin-top: 10px; float: right; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("SENSOR DE TEMPERATURA Y HUMEDAD"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data6=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data6=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed6) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+ 
+          client.println(F("<div style='margin-top: 10px; float: left; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("SIN USO ESPECIFICO"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data7=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data7=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed7) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+
+          client.println(F("<div style='margin-top: 10px; float: right; border: red 3px solid; border-radius: 20px; width: 48%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("SIN USO ESPECIFICO"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<button onClick=location.href='./?data8=0' style='margin:auto;background-color: #188014;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>ON</button>"));
+          client.println(F("<button onClick=location.href='./?data8=1' style='margin:auto;background-color: #de412c;color: snow;padding: 10px;border: 1px solid #3F7CFF;width:65px;'>OFF</button>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("Estado= "));
+          client.println(digitalRead(pinLed8) == LOW ? "<font color='green'> ON </font>" : "<font color='red'> OFF </font>");
+          client.println(F("<br/><br/>"));
+          client.println(F("</div>"));
+          client.println(F("<br/><br/>"));
+ 
+
+          
+          
+           client.println("<h1 align='center'>PROYECTO DE ADMINISTRACION DE SISTEMAS EN RED</h1><h2 align='center'>Juan Dominguez Rodriguez</h2><h3 align='center'>Sistema de control de Reles mediante servidor Web, gestionado por un Arduino Mega 2560 mas tarjeta de Expansion Ethernet</h3>");
+          
+          
+          
+          
+          client.println(F("<div style='margin-top: 10px; float: center; border: red 3px solid; border-radius: 20px; width: 50%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("<a href='http://192.168.10.10' style='color: red; padding: 10px; ' >HAZ CLIC AQUI PARA ACTUALIZAR; </a>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<p>Hay que tener en cuenta, que al ser un servidor web, sin actualizacion automatica por cliente, cualquier cliente que este en la misma direccion de red podra acceder y por lo tanto, podra modificar el estado de cualquier salida digital del arduino; Este detalle lo he tenido en cuenta, pero no he hecho nada por evitarlo ya que en teoria, el servidor web va a estar en un punto de la red, donde solo se podra ingresar desde un host con una determinada direccion MAC. Lo he echo asi, porque hacer correr algun script o metodo de control sobre la libreria del 'shield' de expansion de red sobre el arduino mega, es algo que no he conseguido de realizar :).<p>"));
+          client.println(F("<p>Es en estos casos donde te das cuenta, de la cantidad de trabajo que hay sobre servidores como Apache o Nginx P.ej. <p>"));
+          client.println(F("</div>"));
+
+          client.println(F("<div style='margin-top: 10px; float: center; border: red 3px solid; border-radius: 20px; width: 50%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("<a href='http://www.drtolox.com' style='color: red; padding: 10px; ' >HAZ CLIC AQUI PARA IR A LA WEB DEL AUTOR    'www.drtolox.com'; </a>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<p>Esto es solo un enlace de tipo href en lenguaje html, que nos lanza a una direccion web, en este caso es a la web www.drtolox.com, el cual funcionara, si la red funciona correctamente y hay conexion con internet.<p>"));
+          client.println(F("</div>"));
+          client.println(F("</div>\n</body></html>"));
+          break;
+        }
+        if (c == '\n') 
+        {
+          currentLineIsBlank = true;
+        }
+        else if (c != '\r') 
+        {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+ 
+    delay(1);
+    client.stop();
+  }
+}
