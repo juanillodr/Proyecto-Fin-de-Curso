@@ -1,0 +1,81 @@
+/*Juan Dominguez Rodriguez, Arduino 2x16 LCD con placa DF-Robot */
+
+//incluimos en primer lugar la librería a usar.
+#include <LiquidCrystal.h>
+
+//Declaramos a acontinuacón, las variables constantes de tipo enteras
+//para cada uno de los pines a en la pantalla lcd.
+
+const int pin_RS = 8; 
+const int pin_EN = 9; 
+const int pin_d4 = 4; 
+const int pin_d5 = 5; 
+const int pin_d6 = 6; 
+const int pin_d7 = 7; 
+const int pin_BL = 10; 
+
+
+//Una vez declaradas las variables y asignadas, las usamos para comunicarnos 
+//con la pantalla tal y como nos indica la libreria.
+LiquidCrystal lcd( pin_RS,  pin_EN,  pin_d4,  pin_d5,  pin_d6,  pin_d7);
+
+
+//Comenzamos el bloque void setup()
+void setup() {
+
+  //definimos el tamañao de la pantalla matricial
+  //16 caracteres por linea, 2 lineas.
+  lcd.begin(16, 2);
+
+  //imprimimos en la primera linea "Dir. Ip de Ayuda"
+  lcd.setCursor(0,0);
+  lcd.print("Dir. IP de Ayuda");
+  
+  //Imprimimos en la segunda linea la dirección ip.
+  lcd.setCursor(0,1);
+  lcd.print(" 192.168.10.11");
+}    
+
+
+//Comenzamos con el bloque void loop() el cual ser repite durante el tiempo
+//En este bloque pondremos todo el codigo que queramos que itere.
+
+void loop() {
+  int x;  //Declaramos la variable x como un valor entero.
+
+  //A continuación, teniendo en cuenta que cada uno de los pulsadores
+  //esta conectado a una resistencia en serie, el valor de su medida
+  //enviada al pin 0 donde realiamos el input y la lectura del valor
+  //la estructura de control creada, nos mostrara una impresión por
+  //pantalla en función del boton pulsado.
+
+ //Teniendo en cuenta una tabla de balores asignada por el fabricante de la tabla
+ //a cada boton. (0,200,400,600,800.)
+ 
+  //Si el valor guardado en x es 0 escribe "Date una vuelta!!"
+   x = analogRead (0);
+  lcd.setCursor(0,0);
+  if (x < 60) {
+    lcd.print ("Date una vuelta!! ");
+  }
+  
+  //Si el valor guardado en x es menor a 200 escribe "Vaya! Otra vez?     "
+  else if (x < 200) {
+     lcd.print ("Vaya! Otra vez?     ");
+  }
+
+  //Si el valor guardado en x es menor a 400 escribe "Has salido tocon?      "
+  else if (x < 400){
+     lcd.print ("Has salido tocon?      ");
+  }
+
+  //Si el valor guardado en x es menor a 600 escribe "Ya te vale!!      "
+  else if (x < 600){
+     lcd.print ("Ya te vale!!      ");
+  }
+
+  //Si el valor guardado en x es menor a 600 escribe "No se toca!      "
+  else if (x < 800){
+     lcd.print ("No se toca!      ");
+  }
+}
