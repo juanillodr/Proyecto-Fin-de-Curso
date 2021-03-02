@@ -1,0 +1,249 @@
+/*Juan Dominguez Rodriguez, Pagina web de ayuda del armario RACK*/
+
+#include <SPI.h>
+#include <Ethernet.h>
+ 
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEF };
+IPAddress ip(192, 168, 10, 11);
+EthernetServer server(80);
+ 
+const int pinLed1 = 31;
+const int pinLed2 = 33;
+const int pinLed3 = 35;
+const int pinLed4 = 37;
+const int pinLed5 = 39;
+const int pinLed6 = 41;
+const int pinLed7 = 43;
+const int pinLed8 = 45;
+ 
+void setup()
+{
+  Serial.begin(9600);
+ 
+  Ethernet.begin(mac, ip);
+  server.begin();
+ 
+  Serial.print("server is at ");
+  Serial.println(Ethernet.localIP());
+ 
+  pinMode(pinLed1, OUTPUT);
+  pinMode(pinLed2, OUTPUT);
+  pinMode(pinLed3, OUTPUT);
+  pinMode(pinLed4, OUTPUT);
+  pinMode(pinLed5, OUTPUT);
+  pinMode(pinLed6, OUTPUT);
+  pinMode(pinLed7, OUTPUT);
+  pinMode(pinLed8, OUTPUT);
+  digitalWrite(pinLed1, HIGH);
+  digitalWrite(pinLed2, HIGH);
+  digitalWrite(pinLed3, HIGH);
+  digitalWrite(pinLed4, HIGH);
+  digitalWrite(pinLed5, HIGH);
+  digitalWrite(pinLed6, HIGH);
+  digitalWrite(pinLed7, HIGH);
+  digitalWrite(pinLed8, HIGH);
+  
+}
+ 
+void loop()
+{
+  EthernetClient client = server.available(); 
+  if (client)
+  {
+    Serial.println("new client");
+    bool currentLineIsBlank = true;
+    String cadena = "";
+    while (client.connected()) 
+    {
+      if (client.available()) 
+      {
+        char c = client.read();
+        Serial.write(c);
+ 
+        if (cadena.length()<100)
+        {
+          cadena.concat(c);
+ 
+           // Buscar campo data
+          int posicion = cadena.indexOf("data");
+          String command = cadena.substring(posicion);
+ 
+          if (command == "data1=0")
+          {
+            digitalWrite(pinLed1, LOW);
+          }
+          else if (command == "data1=1")
+          {
+            digitalWrite(pinLed1, HIGH);
+          }
+
+
+          
+          else if (command == "data2=0")
+          {
+            digitalWrite(pinLed2, LOW);
+          }
+          else if (command == "data2=1")
+          {
+            digitalWrite(pinLed2, HIGH);
+          }
+
+          
+                    
+                 
+        }
+ 
+        // Al recibir linea en blanco, servir página a cliente
+        if (c == '\n' && currentLineIsBlank)
+
+        {
+          
+          // Enviamos al cliente una respuesta HTTP
+          client.println(F("HTTP/1.1 200 OK\nContent-Type: text/html"));
+          client.println();
+ 
+          
+          
+          
+          
+          //Página web en formato HTML
+          client.println(F("<html>\n<head>\n<title>AYUDA</title>\n</head>\n<body>"));
+          client.println(F("<div style='text-align:center;'>"));
+          client.println("<h1 align='center'> -PAGINA DE AYUDA DEL PROYECTO-</h1>");
+              
+          client.println(F("<br/>"));
+  
+          client.println("<h1 align='center'>PROYECTO DE ADMINISTRACION DE SISTEMAS EN RED</h1><h2 align='center'>Juan Dominguez Rodriguez</h2>");
+
+
+          client.println("<h3 align='left'>Si has llegado hasta aqui, es que tienes privilegios para poder acceder al gestor web del rack, y has podido habilitar la direccion ip de ayuda, que da acceso a este pequeñn servidor web basado en html, escrito en c sobre un Arduino.</h3>");
+
+
+          client.println("<h2 align='center'>Los servicios y direcciones ip que encontraras en este rack son los siguientes: </h2>");
+
+
+          
+          
+          
+          client.println(F("<div style='margin-top: 10px; float: center; border: blue 3px solid; border-radius: 20px; width: 90%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          
+          client.println("<h1 style='color: blue;' align='center'>Host de acceso a red, enlace, y configuracion de red</h1>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Puerta de enlace principal y direccion ip de acceso al configurador WEB (Router TPLink RACK)</h3><a href='http://192.168.10.1' style='color: blue;'>192.168.10.1</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Puerta de enlace principal y direccion ip de acceso al configurador WEB (Router TPLink TUNEL)</h3><a href='http://192.168.10.100' style='color: blue;'>192.168.10.100</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Direccion de red de la Wan (Router TPLink) </h3><a href='http://192.168.100.200' style='color: blue;'>192.168.100.200</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor de Gestion WEB de Gestion remota del RACK</h3><a href='http://192.168.10.10' style='color: blue;'>192.168.10.10</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor de Gestion WEB de Gestion remota del TUNEL</h3><a href='http://192.168.10.110' style='color: blue;'>192.168.10.110</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Punto de acceso inalambrico para conexion con el tunel (Antena UbiKiti)</h3><a href='http://192.168.10.21' style='color: blue;'>192.168.10.21</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Punto de acceso para usos varios (Antena Mikrotik)</h3><a href='http://192.168.10.20' style='color: blue;'>192.168.10.20</a>");
+          client.println(F("<hr/>"));
+          
+          client.println(F("</div>"));
+          
+          
+          
+          
+          
+          client.println(F("<div style='margin-top: 10px; float: center; border: blue 3px solid; border-radius: 20px; width: 90%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          
+          client.println("<h1 style='color: blue;' align='center'>Host (Servidores) de recursos en red (DNS, WEB, ALMACENAMIENTO, TICKETING, CORREO, ENTRETENIMIENTO, etc... )</h1>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor DNS</h3><a href='http://192.168.10.2' style='color: blue;'>192.168.10.2</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor WEB, Pagina Interna del centro de Conservacion</h3><a href='http://192.168.10.3' style='color: blue;'>192.168.10.3</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>NAS, Almacenamiento de datos del centro de Conservacion</h3><a href='http://192.168.10.4' style='color: blue;'>192.168.10.4</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor de alojamiento del Sistema de Ticketing de incidencias Interno</h3><a href='http://192.168.10.5' style='color: blue;'>192.168.10.5</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor de Correo Interno (PostFix)</h3><a href='http://192.168.10.6' style='color: blue;'>192.168.10.6</a>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>Servidor de Entretenimiento, (Kodi, Retropie, etc...)</h3><a href='http://192.168.10.0' style='color: blue;'>DHCP</a>");
+          client.println(F("<hr/>"));
+          
+          client.println(F("</div>"));
+
+
+
+          client.println(F("<div style='margin-top: 10px; float: center; border: blue 3px solid; border-radius: 20px; width: 90%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println("<h1 style='color: blue;' align='center'>Detalles de pines de en los controladores Web Basados en Arduinos.</h1>");
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>PINES USADOS EN EL ARDUINO MEGA 2560 PARA LA CREACIoN DE LA WEB DE GESTION DEL RACK DEL CENTRO DE CONTROL</h3>");
+          client.println("<p align='left'>const int pinLed1 = 31;    TENSION EN FUENTE DE ALIMENTACION PRINCIPAL</p>");
+          client.println("<p align='left'>const int pinLed2 = 33;    DIRECCION IP DE AYUDA</p>");
+          client.println("<p align='left'>const int pinLed3 = 35;    VENTILADOR REFRIGERACION</p>");
+          client.println("<p align='left'>const int pinLed4 = 37;    WEB DE AYUDA</p>");
+          client.println("<p align='left'>const int pinLed5 = 39;    ILUMINACION INTERIOR DEL ARMARIO</p>");
+          client.println("<p align='left'>const int pinLed6 = 41;    SENSOR DE TEMPERATURA Y HUMEDAD</p>");
+          client.println("<p align='left'>const int pinLed7 = 43;    SIN USO ESPECIFICO</p>");
+          client.println("<p align='left'>const int pinLed8 = 45;    SIN USO ESPECIFICO</p>");
+
+          client.println(F("<hr/>"));
+          client.println("<h3 align='center'>PINES USADOS EN EL ARDUINO MEGA 2560 PARA LA CREACIoN DE LA WEB DE GESTION DEL TUNEL DE ASIR</h3>");
+          client.println("<p align='left'>const int pinLed1  = 28;    ILUMINACION SUPERIOR MARGEN IZQUIERDA</p>");
+          client.println("<p align='left'>const int pinLed2  = 29;  ILUMINACION SUPERIOR MARGEN DERECHA</p>");
+          client.println("<p align='left'>const int pinLed3  = 30;  ILUMINACION LATERAL MARGEN IZQUIERDA</p>");
+          client.println("<p align='left'>const int pinLed4  = 31;  ILUMINACION LATERAL MARGEN DERECHA</p>");
+          client.println("<p align='left'>const int pinLed5  = 32;  DISTANCIA DE SEGURIDAD MARGEN IZQUIERDA</p>");
+          client.println("<p align='left'>const int pinLed6  = 33;  DISTANCIA DE SEGURIDAD MARGEN DERECHA</p>");
+          client.println("<p align='left'>const int pinLed7  = 34;  VENTILADOR NUMERO 1 -NORTE-</p>");
+          client.println("<p align='left'>const int pinLed8  = 35;  VENTILADOR NUMERO 2 -CENTRO-</p>");
+          client.println("<p align='left'>const int pinLed9  = 36;  VENTILADOR NUMERO 3 -SUR-</p>");
+          client.println("<p align='left'>const int pinLed10 = 37;  BARRERA NORTE, SENTIDO BARCELONA</p>");
+          client.println("<p align='left'>const int pinLed11 = 38;  BARRERA SUR, SENTIDO CADIZ</p>");
+          client.println("<p align='left'>const int pinLed12 = 39;  SEMAFOROS -ROJO- BOCA NORTE</p>");
+          client.println("<p align='left'>const int pinLed13 = 40;  SEMAFOROS -ROJO- BOCA SUR</p>");
+          client.println("<p align='left'>const int pinLed14 = 41;  SEMAFOROS -PRECAUCION- AMBAS BOCAS</p>");
+          client.println("<p align='left'>const int pinLed15 = 43;  </p>");
+          client.println("<p align='left'>const int pinLed16 = 45;  SEMAFOROS -VERDE- BOCA NORTE</p>");
+          client.println("<p align='left'>const int pinLed17 = 46;  SEMAFOROS -VERDE- BOCA SUR</p>");
+          
+          
+          client.println(F("</div>"));
+
+
+
+
+          
+ 
+          client.println(F("<div style='margin-top: 10px; float: center; border: red 3px solid; border-radius: 20px; width: 90%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("<a href='http://192.168.10.11' style='color: blue; padding: 10px; ' >HAZ CLIC AQUI PARA ACTUALIZAR; </a>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<p>Hay que tener en cuenta, que al ser un servidor web, sin actualizacion automatica por cliente, cualquier cliente que este en la misma direccion de red podra acceder y por lo tanto, podra modificar el estado de cualquier salida digital del arduino; Este detalle lo he tenido en cuenta, pero no he hecho nada por evitarlo ya que en teoria, el servidor web va a estar en un punto de la red, donde solo se podra ingresar desde un host con una determinada direccion MAC. Lo he echo asi, porque hacer correr algun script o metodo de control sobre la libreria del 'shield' de expansion de red sobre el arduino mega, es algo que no he conseguido de realizar :).<p>"));
+          client.println(F("<p>Es en estos casos donde te das cuenta, de la cantidad de trabajo que hay sobre servidores como Apache o Nginx P.ej. <p>"));
+          client.println(F("</div>"));
+
+          client.println(F("<div style='margin-top: 10px; float: center; border: red 3px solid; border-radius: 20px; width: 90%; display:inline-block;'>"));
+          client.println(F("<br/>"));
+          client.println(F("<a href='http://www.drtolox.com' style='color: blue; padding: 10px; ' >HAZ CLIC AQUI PARA IR A LA WEB DEL AUTOR    'www.drtolox.com'; </a>"));
+          client.println(F("<br/><br/>"));
+          client.println(F("<p>Esto es solo un enlace de tipo href en lenguaje html, que nos lanza a una direccion web, en este caso es a la web www.drtolox.com, el cual funcionara, si la red funciona correctamente y hay conexion con internet.<p>"));
+          client.println(F("</div>"));
+          client.println(F("</div>\n</body></html>"));
+          break;
+        }
+        if (c == '\n') 
+        {
+          currentLineIsBlank = true;
+        }
+        else if (c != '\r') 
+        {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+ 
+    delay(1);
+    client.stop();
+  }
+}
