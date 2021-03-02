@@ -1,12 +1,12 @@
 # Proyecto-Fin-de-Curso
 Simulación de un entorno informático en un centro de conservación de carreteras.
 
-I Introducción 
-1. Agradecimientos. 
-2. Objetivos y motivacion. 
-2.1. Objetivos del proyecto.
-2.2. Motivacion del proyecto.
-II Planicacion 
+#I Introducción 
+#1. Agradecimientos. 
+#2. Objetivos y motivacion. 
+##2.1. Objetivos del proyecto.
+##2.2. Motivacion del proyecto.
+#II Planicacion 
 2.3. Fases del Proyecto. 
 2.3.1. Seleccion de la idea .
 2.3.2. Introducción a las Instalaciónes de tuneles .
