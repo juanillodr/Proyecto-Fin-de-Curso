@@ -1,0 +1,73 @@
+/*Juan Dominguez Rodriguez, control de barreras abatibles mediante servomotores*/
+
+//Incluimos en el programa las librerias que vamos a usar.
+#include <Servo.h>
+
+//Teniendo en cuenta el funcionamiento de la librería servo.h, 
+//declaramos para cada uno de los motores un nombre diferente
+Servo myservo;
+Servo myservo2;
+
+
+
+//Creamos dos variables diferentes para cada uno de los pines
+//de entrada que vamos a usar para las señales de entrada
+//y lo sigualamos a uno de los pintes a usar, en mi caso el 2 y el 3. 
+const int buttonPin = 2;
+const int buttonPin2 = 3;
+
+//Creamos y declaramos las variables val, y buttonState, igualando esta 
+//ultima a cero, para no tener problemas en el inicio.
+int val;
+int buttonState = 0;
+
+
+//Comenzamos con el bloque void setup()
+void setup()
+{
+  myservo.attach(9);    //declaramos el pin 9 para el servo 1
+  pinMode(buttonPin, INPUT); //El modo del pin buttonPin sera de entrada de valores
+
+  myservo2.attach(10); //declaramos el pin 10 para el servo 2
+  pinMode(buttonPin, INPUT); //El modo del pin buttonPin sera de entrada de valores
+
+   
+}
+
+
+//Comenzamos con el bloque void setup() que ser repite constantemente
+void loop()
+{
+  buttonState = digitalRead(buttonPin); //leemos el estado de buttonPin
+  if (buttonState == HIGH) {      //si el valor de esta es alto
+    val = 90;                     //escrivimos en la variable val 90 por
+                                  //lo que nuestro motor se dispondra a 90 grados
+  }
+  
+  
+  else {
+    val = 0;  //De lo contrario, el motor se quedará en la posición de reposo a 0 grados
+  }
+  
+  
+  myservo.write(val);
+  delay(15);
+
+  
+  //Realizamos la misma operación para el servomotor 2, usando la variable val, 
+  //leyendo el valor de buttonState en el pin de entrada
+  //y moviendo este a 90 grados o no dependiendo de la entrada. 
+  buttonState = digitalRead(buttonPin2);
+  if (buttonState == HIGH) {     
+    val = 90; 
+  }
+  else {
+    val = 0;
+  }
+  myservo2.write(val);
+  delay(15);
+
+ 
+  
+  
+}
