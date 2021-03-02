@@ -1,0 +1,50 @@
+/*pines usados en el arduino mega 2560 para la creación de la web del tunel*/
+
+const int pinLed1  = 28;  	ILUMINACION SUPERIOR MARGEN IZQUIERDA
+const int pinLed2  = 29;	ILUMINACION SUPERIOR MARGEN DERECHA
+const int pinLed3  = 30;	ILUMINACION LATERAL MARGEN IZQUIERDA
+const int pinLed4  = 31;	ILUMINACION LATERAL MARGEN DERECHA
+const int pinLed5  = 32;	DISTANCIA DE SEGURIDAD MARGEN IZQUIERDA
+const int pinLed6  = 33;	DISTANCIA DE SEGURIDAD MARGEN DERECHA
+const int pinLed7  = 34;	VENTILADOR NUMERO 1 -NORTE-
+const int pinLed8  = 35;	VENTILADOR NUMERO 2 -CENTRO-
+const int pinLed9  = 36;	VENTILADOR NUMERO 3 -SUR-
+const int pinLed10 = 37;	BARRERA NORTE, SENTIDO BARCELONA
+const int pinLed11 = 38;	BARRERA SUR, SENTIDO CADIZ
+const int pinLed12 = 39;	SEMAFOROS -ROJO- BOCA NORTE
+const int pinLed13 = 40;	SEMAFOROS -ROJO- BOCA SUR
+const int pinLed14 = 41;	SEMAFOROS -PRECAUCION- AMBAS BOCAS
+const int pinLed15 = 43;	
+const int pinLed16 = 45;	SEMAFOROS -VERDE- BOCA NORTE
+const int pinLed17 = 46;	SEMAFOROS -VERDE- BOCA SUR
+
+
+  pinMode(pinLed1, OUTPUT);
+  pinMode(pinLed2, OUTPUT);
+  pinMode(pinLed3, OUTPUT);
+  pinMode(pinLed4, OUTPUT);
+  pinMode(pinLed5, OUTPUT);
+  pinMode(pinLed6, OUTPUT);
+  pinMode(pinLed7, OUTPUT);
+  pinMode(pinLed8, OUTPUT);
+  pinMode(pinLed9, OUTPUT);
+  pinMode(pinLed10, OUTPUT);
+  pinMode(pinLed11, OUTPUT);
+  pinMode(pinLed12, OUTPUT);
+  pinMode(pinLed13, OUTPUT);
+  
+
+ 
+  digitalWrite(pinLed1, HIGH);
+  digitalWrite(pinLed2, HIGH);
+  digitalWrite(pinLed3, HIGH);
+  digitalWrite(pinLed4, HIGH);
+  digitalWrite(pinLed5, HIGH);
+  digitalWrite(pinLed6, HIGH);
+  digitalWrite(pinLed7, HIGH);
+  digitalWrite(pinLed8, HIGH);
+  digitalWrite(pinLed9, HIGH);
+  digitalWrite(pinLed10, HIGH);
+  digitalWrite(pinLed11, HIGH);
+  digitalWrite(pinLed12, HIGH);
+  digitalWrite(pinLed13, HIGH);
