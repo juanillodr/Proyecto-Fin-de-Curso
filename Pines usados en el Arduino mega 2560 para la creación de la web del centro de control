@@ -1,0 +1,32 @@
+/*pines usados en el arduino mega 2560 para la creación de la web del centro de control*/
+
+
+const int pinLed1 = 31;		TENSION EN FUENTE DE ALIMENTACION PRINCIPAL
+const int pinLed2 = 33;		DIRECCION IP DE AYUDA
+const int pinLed3 = 35;		VENTILADOR REFRIGERACION
+const int pinLed4 = 37;		WEB DE AYUDA
+const int pinLed5 = 39;		ILUMINACION INTERIOR DEL ARMARIO
+const int pinLed6 = 41;		SENSOR DE TEMPERATURA Y HUMEDAD
+const int pinLed7 = 43;		SIN USO ESPECIFICO	
+const int pinLed8 = 45;		SIN USO ESPECIFICO
+
+
+  pinMode(pinLed1, OUTPUT);
+  pinMode(pinLed2, OUTPUT);
+  pinMode(pinLed3, OUTPUT);
+  pinMode(pinLed4, OUTPUT);
+  pinMode(pinLed5, OUTPUT);
+  pinMode(pinLed6, OUTPUT);
+  pinMode(pinLed7, OUTPUT);
+  pinMode(pinLed8, OUTPUT);
+  
+  
+  
+  digitalWrite(pinLed1, HIGH);
+  digitalWrite(pinLed2, HIGH);
+  digitalWrite(pinLed3, HIGH);
+  digitalWrite(pinLed4, HIGH);
+  digitalWrite(pinLed5, HIGH);
+  digitalWrite(pinLed6, HIGH);
+  digitalWrite(pinLed7, HIGH);
+  digitalWrite(pinLed8, HIGH);  
