@@ -1,0 +1,78 @@
+/*Juan Dominguez Rodriguez, Semaforos interiores Ambar */
+
+// Creamos las variables constantes, le asignamos a cada una de ellas un nombre y la igualamos a uno de los pines del arduino.
+
+const int buttonPin = 2;     // El numero del pin que recibirá la entrada
+const int buttonPin2 = 3;
+const int ledPin =  13;      // El numero del pin que nos dará el output de salida par alimentar el relé
+const int ledPin2 = 11;
+
+
+// Creamos la variables donde guardaremos el valor del estado de entrada para el mando.
+
+int buttonState = 0;         // variable que lee el valor de la entrada digital
+int buttonState2 = 0;
+
+
+void setup() {
+  // Inicializamos el modo en el que se va a usar los pines asociados a ledPin y ledPin2 que será sálida para cada uno de los relés:
+  pinMode(ledPin, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+
+  
+  // Iniciamos la variable del pin de lectura;
+  
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin2, OUTPUT);
+  
+}
+
+void loop() 
+
+  {
+  // Leemos los valores de los estados en los pines de entrada (Alto o bajo);
+  buttonState = digitalRead(buttonPin);
+  buttonState2 = digitalRead(buttonPin2);
+
+  // Chequeamos el valor de la variable buttonstate, donde si esta contiene un valor Alto, se activara la intermitencia.
+  if (buttonState == HIGH) 
+  
+  {
+    // Activamos la intermitencia de la alimentación del relé en 800 milisegundos:
+    digitalWrite(ledPin, HIGH);
+    delay(800);
+    digitalWrite(ledPin, LOW);
+    delay(800);
+    
+  //En caso de que el valor de buttonState sea Bajo tras comprobar su valor en la iteración, el valor del pin de salida ledPin, sera bajo, y no se alimentará el relé.
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+  }
+
+  
+  
+  // Chequeamos el valor de la variable buttonstate2 para el segundo grupo de semaforos, donde si esta contiene un valor Alto, se activara la intermitencia.
+  if (buttonState2 == HIGH) 
+  {
+    // Activamos la alimentación del segundo relé;
+    digitalWrite(ledPin2, HIGH);
+
+
+//Al igual que antes, En caso de que el valor de buttonState sea Bajo tras comprobar su valor en la iteración, el valor del pin de salida ledPin, sera bajo, y no se alimentará el relé.
+    } else {
+    // turn LED off:
+    digitalWrite(ledPin2, LOW);
+  }
+  
+  
+  
+
+
+
+
+
+
+
+  
+}
