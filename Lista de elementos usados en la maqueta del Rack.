@@ -1,0 +1,41 @@
+PROPUESTA DE PROYECTO INTEGRADO (PI).
+
+Simulación de un Rack con varios servicios en red, para un centro de conservación de carreteras.
+
+Elementos utilizados:
+
+1 Router TP-Link TL-WR542G.
+1 Switch TP-Link TL-SF1016D.
+1 Antena Ubiquiti PowerStation2 + POE.
+1 Antena Ubiquiti NanoStation2 + POE.
+1 Placa Mikrotik RB411 + tarjeta TP-Link TL-WN562AG + POE.
+2 Placas Arudino Mega 2560.
+2 Placas Shield Ethernet W5100 (Sobre Arduino Mega). 
+2 Placas Arduino Uno R3 .
+1 Pantalla matricial 2*16.
+1 Controladora I2C (Para pantalla matricial).
+1 Placa LCD KeyPad shield para Arduino Uno.
+1 Sensor temperatura y humedad Dht 11.
+6 Micro voltímetros 0-30 V cc (Rojo). 
+1 Voltímetro de panel 0-30 V cc (Verde). 
+1 Placa de 8 Relees (5-Voltios), con optoacopladores.
+2 Placas Raspberry pi B+.
+2 Placas Raspberry pi 2 B+.
+2 Placas Raspberry pi 3 B *.
+2 Mandos usb imitación nintendo 8 bits. 
+1 Pantalla LCD 4.4" con conexión GPIO y Hdmi para Placa Raspberry Pi.
+1 Cuadro de mando estanco con puerta transparente.
+1 Diferencial 2*40A 30mA.
+1 Medidor de consumo.
+6 Magnetotérmicos 1*16A.
+1 tira de Leds (Blancos), para iluminación del cuadro.
+1 Disco duro (HDD) Sata 160 GB + controladora USB.
+1 Disco duro (HDD) IDE 120 GB + controladora USB.
+1 Ventilador de un armario Rack.
+Varios metros de cable de Red UTP Cat 5E.
+Soportes para cables.
+Tornillos.
+Presillas.
+Fundas termorretractiles.
+Planchas de madera de 1.2 Cm.
+Paciencia:)
