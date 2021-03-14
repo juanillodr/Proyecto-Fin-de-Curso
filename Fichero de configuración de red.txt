@@ -1,0 +1,17 @@
+/*Fichero de configuración*/
+
+/* /etc/dhcpcd.conf */
+
+
+/*Ejemplo*/
+
+interface eth0
+static ip_address=192.168.1.250/24
+static routers=192.168.1.1
+static domain_name_servers=212.231.6.7 46.6.113.34
+
+
+
+/*Web de ejemplo*/
+
+/*https://raspberryparanovatos.com/tutoriales/asignar-ip-fija-raspberry-pi/*/
